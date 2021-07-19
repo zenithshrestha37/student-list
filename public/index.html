@@ -7,6 +7,26 @@
     <title>Student List</title>
   </head>
   <body>
+    <form>
+      <input type="text" placeholder="type name here..." />
+      <input type="submit" />
+    </form>
     <h1>Student List</h1>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+      const addForm = document.querySelector("form");
+      const nameInput = document.querySelector("input");
+
+      function submitHandler(e) {
+        e.preventDefault();
+        axios
+          .post("/api/student", { name: nameInput.value })
+          .then((res) => console.log("res"))
+          .catch((err) => console.log(err));
+      }
+
+      addForm.addEventListener("submit", submitHandler);
+    </script>
   </body>
 </html>
