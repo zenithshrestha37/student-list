@@ -1,13 +1,5 @@
 const express = require("express");
 const path = require("path");
-const Rollbar = require("rollbar");
-
-let rollbar = new Rollbar({
-  accessToken: "d8f6a81e7f6947f3b30fa6c91148acd7",
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-});
-
 // require rollbar below
 
 // create the Rollbar class below
@@ -19,7 +11,6 @@ let studentList = [];
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/index.html"));
   // send rollbar some info
-  rollbar.info("html file server successfully");
 });
 
 app.post("/api/student", (req, res) => {
