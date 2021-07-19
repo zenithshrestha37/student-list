@@ -23,7 +23,7 @@
       function submitHandler(e) {
         e.preventDefault();
         axios
-          .post("/api/student", { name: nameInput.value })
+          .post("http://localhost:4545/api/student", { name: nameInput.value })
           .then((res) => {
             container.innerHTML = "";
 
