@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
 const Rollbar = require("rollbar");
-const cors = require("cors");
 
 let rollbar = new Rollbar({
   accessToken: "414f61a39955404b807df8b0b8a9ddb6",
@@ -15,7 +14,6 @@ let rollbar = new Rollbar({
 
 const app = express();
 app.use(express.json());
-app.use(cors());
 let studentList = [];
 
 app.get("/", (req, res) => {
