@@ -5,7 +5,6 @@ const path = require("path");
 // create the Rollbar class below
 
 const app = express();
-
 app.use(express.json());
 
 let studentList = [];
@@ -18,10 +17,25 @@ app.get("/", (req, res) => {
 app.post("/api/student", (req, res) => {
   const { name } = req.body;
   name = name.trim();
-  studentList.push(name);
-  // add rollbar log here
 
-  res.status(200).send(studentList);
+  const index = studentList.findIndex((studentName) => {
+    return studentName === name;
+  });
+
+  if (index === -1 && name !== "") {
+    studentList.push(name);
+    // add rollbar log here
+
+    res.status(200).send(studentList);
+  } else if (name === "") {
+    // add a rollbar error here
+
+    res.status(400).send({ error: "no name was provided" });
+  } else {
+    // add a rollbar error here too
+
+    res.status(400).send({ error: "that student already exists" });
+  }
 });
 
 const port = process.env.PORT || 4545;
