@@ -1,8 +1,14 @@
 const express = require("express");
 const path = require("path");
 // require rollbar below
-
+const Rollbar = require('rollbar')
 // create the Rollbar class below
+const rollbar = new Rollbar({
+  accessToken: "efb8492660cc4d1db2f8509768a39f7e",
+  captureUncaught: true,
+  captureUnhandledRejections: true
+})
+
 
 const app = express();
 app.use(express.json());
