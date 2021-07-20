@@ -9,16 +9,15 @@ const rollbar = new Rollbar({
   captureUnhandledRejections: true
 })
 
-
 const app = express();
 app.use(express.json());
+app.use(rollbar.errorHandler())
 
 let studentList = [];
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/index.html"));
   // send rollbar some info
-
 rollbar.info("html file served successfuly")
 });
 
@@ -30,17 +29,22 @@ app.post("/api/student", (req, res) => {
     return studentName === name;
   });
 
+  const myName = "Zenith"
+
   if (index === -1 && name !== "") {
     studentList.push(name);
     // add rollbar log here
+    rollbar.log("student added successfully", {author: `${myName}`, type: "manual"})
 
     res.status(200).send(studentList);
   } else if (name === "") {
     // add a rollbar error here
+    rollbar.error("no name given")
 
     res.status(400).send({ error: "no name was provided" });
   } else {
     // add a rollbar error here too
+    rollbar.error("student already exists")
 
     res.status(400).send({ error: "that student already exists" });
   }
